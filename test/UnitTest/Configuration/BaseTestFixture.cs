@@ -11,10 +11,10 @@ namespace UnitTest.Configuration
 {
     public class BaseTestFixture : IDisposable
     {
-        public TestServer Server { get; set; }
-        public HttpClient Client { get; set; }
-        public DataContext TestDataContext { get; set; }
-        public IConfigurationRoot Configuration { get; set; }
+        public readonly TestServer Server;
+        public readonly HttpClient Client;
+        public readonly DataContext TestDataContext;
+        private readonly IConfigurationRoot Configuration;
 
         public BaseTestFixture(){
             var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");

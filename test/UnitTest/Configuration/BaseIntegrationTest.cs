@@ -10,15 +10,14 @@ namespace UnitTest.Configuration
     [Collection("Base collection")]
     public abstract class BaseIntegrationTest 
     {
-        public TestServer Server { get; set; }
-        public HttpClient Client { get; set; }
-        public DataContext TestDataConext { get; set; }
-
-        protected BaseTestFixture Fixture { get; set; }
+        protected readonly TestServer Server;
+        protected readonly HttpClient Client;
+        protected readonly DataContext TestDataContext;
+        protected readonly BaseTestFixture Fixture;
 
         protected BaseIntegrationTest(BaseTestFixture fixture) {
             this.Fixture = fixture;
-            this.TestDataConext = fixture.TestDataContext;
+            this.TestDataContext = fixture.TestDataContext;
             this.Server = fixture.Server;
             this.Client = fixture.Client;
 
@@ -32,13 +31,13 @@ namespace UnitTest.Configuration
                 "EXEC sp_MSForEachTable 'ALTER TABLE ? CHECK CONSTRAINT ALL'"
             };
 
-            await TestDataConext.Database.OpenConnectionAsync();
+            await TestDataContext.Database.OpenConnectionAsync();
 
             foreach (var command in commands) {
-                await TestDataConext.Database.ExecuteSqlCommandAsync(command);
+                await TestDataContext.Database.ExecuteSqlCommandAsync(command);
             }
 
-            TestDataConext.Database.CloseConnection();            
+            TestDataContext.Database.CloseConnection();            
         }
 
     }

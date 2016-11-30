@@ -34,8 +34,8 @@ namespace UnitTest.Controllers
                 Twitter = "@rafaelbarrelo"
             };
 
-            await TestDataConext.AddAsync(pessoa);
-            await TestDataConext.SaveChangesAsync();
+            await TestDataContext.AddAsync(pessoa);
+            await TestDataContext.SaveChangesAsync();
             
             var response = await Client.GetAsync(BaseUrl);
             response.EnsureSuccessStatusCode();
