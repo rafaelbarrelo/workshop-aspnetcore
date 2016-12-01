@@ -11,7 +11,7 @@ dependencies:
     override:
         - dotnet restore
 
-databases:
+database:
     override:
         - docker run --name sqlserver -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=sqlserver@123' -p 1433:1433 -d microsoft/mssql-server-linux
         - docker inspect sqlserver
